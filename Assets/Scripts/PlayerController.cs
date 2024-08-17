@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
@@ -36,14 +37,50 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
     private bool jumpReleased;
 
+    [Header("Attack")]
+    public Transform batPivot;
+    public bool isSwinging;
+    //private Quaternion originQuat;
+    private Quaternion targetQuat;
+    public float swingTargetA;
+    public float swingTargetB;
+    public bool isTargetingA;
+    public float attackSpeed;
 
     private void Awake()
     {
         _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
+        //originQuat = batPivot.rotation;
+        targetQuat = Quaternion.Euler(0f, swingTargetB, 0f);
     }
 
     private void Update()
     {
+        // Attack!
+        if(!isSwinging && _playerLocomotionInput.GetAttack.WasPressedThisFrame())
+        {
+            isSwinging = true;
+        }
+        else if(isSwinging)
+        {
+            batPivot.localRotation = Quaternion.Lerp(batPivot.localRotation, targetQuat, attackSpeed * Time.deltaTime);
+            
+            if (Quaternion.Angle(batPivot.localRotation, targetQuat) < 1f)
+            {
+                isSwinging = false;
+                isTargetingA = !isTargetingA;
+                if (isTargetingA)
+                {
+                    targetQuat = Quaternion.Euler(0f, swingTargetA, 0f);
+                }
+                else
+                {
+                    targetQuat = Quaternion.Euler(0f, swingTargetB, 0f);
+                }
+            }
+        }
+
+
         // Rotate character
         _playerTargetRotation.x += transform.eulerAngles.x + rotationSpeed * _playerLocomotionInput.RotateInput.x * angularDrag * Time.deltaTime;
         transform.rotation = Quaternion.Euler(0f, _playerTargetRotation.x, 0f);
