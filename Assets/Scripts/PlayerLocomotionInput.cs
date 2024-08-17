@@ -10,7 +10,7 @@ public class PlayerLocomotionInput : MonoBehaviour, PlayerControls.IPlayerLocomo
     public Vector2 MovementInput { get; private set; }
     public Vector2 RotateInput { get; private set; }
     public Vector2 LookInput { get; private set; }
-    public float GetJump {  get; private set; }
+    public InputAction GetJump {  get; private set; }
     public InputAction GetAttack { get; private set; }
 
     private void OnEnable()
@@ -21,6 +21,7 @@ public class PlayerLocomotionInput : MonoBehaviour, PlayerControls.IPlayerLocomo
         PlayerControls.PlayerLocomotionMap.Enable();
         PlayerControls.PlayerLocomotionMap.SetCallbacks(this);
 
+        GetJump = PlayerControls.PlayerLocomotionMap.Jump;
         GetAttack = PlayerControls.PlayerLocomotionMap.Attack;
     }
 
@@ -48,7 +49,7 @@ public class PlayerLocomotionInput : MonoBehaviour, PlayerControls.IPlayerLocomo
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        GetJump = context.ReadValue<float>();
+        GetJump.ReadValue<float>();
     }
 
     public void OnAttack(InputAction.CallbackContext context)

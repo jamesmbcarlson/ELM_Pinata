@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         _playerTargetRotation.x += transform.eulerAngles.x + rotationSpeed * _playerLocomotionInput.RotateInput.x * angularDrag * Time.deltaTime;
         transform.rotation = Quaternion.Euler(0f, _playerTargetRotation.x, 0f);
 
-        if (!jumpReleased && _playerLocomotionInput.GetJump < 0.1)
+        if (!jumpReleased && _playerLocomotionInput.GetJump.WasReleasedThisFrame())
         {
             jumpReleased = true;
         }
@@ -120,12 +120,12 @@ public class PlayerController : MonoBehaviour
         }
 
         // Jump
-        if (_playerLocomotionInput.GetJump > 0 && isGrounded && jumpReleased)
+        if (_playerLocomotionInput.GetJump.IsPressed() && isGrounded && jumpReleased)
         {
             verticalVelocity += Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
         // Reduce upward velocity when the jump button is released early
-        else if (_playerLocomotionInput.GetJump == 0)
+        else if (!_playerLocomotionInput.GetJump.IsPressed())
         {
             jumpReleased = true;
             if (verticalVelocity > 0) { 
