@@ -10,9 +10,11 @@ public class Candy : MonoBehaviour
     public float rotationSpeed = 1.0f;
     public float spawnImpulse = 10f;
     private float lastY;
+    private float candyScale = 0.25f; // this is the scale of the candy relative to the pinata
 
     void Awake()
     {
+        playerController = FindObjectOfType<PlayerController>();
         transform.rotation = Quaternion.Euler(-90f, Random.Range(0f, 360f), 0f);
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -20,9 +22,16 @@ public class Candy : MonoBehaviour
 
     private void OnEnable()
     {
+        // scale candy to size relative to pinata
+        float pScale = playerController.gameObject.transform.localScale.x;
+        float adjScale = pScale * candyScale;
+        transform.localScale = new Vector3(adjScale, adjScale, adjScale);
+
+        // candy jumps out of spawning object
         rb.AddForce(new Vector3(Random.Range(-1f, 1f), spawnImpulse, Random.Range(-1f, 1f)), ForceMode.Impulse);   
         capsuleCollider.enabled = false;
         lastY = transform.position.y;
+
     }
 
     void Update()
