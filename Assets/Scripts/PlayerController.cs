@@ -47,6 +47,10 @@ public class PlayerController : MonoBehaviour
     public bool isTargetingA;
     public float attackSpeed;
 
+    [Header("Stats")]
+    public float initialScale = 0.4f;
+    public float damage = 1f;
+
     private void Awake()
     {
         _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
