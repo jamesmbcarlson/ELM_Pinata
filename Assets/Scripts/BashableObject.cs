@@ -53,7 +53,7 @@ public class BashableObject : MonoBehaviour
                 for(int i = 0; i < candyAmount; i++)
                 {
                     GameObject candyObject = candyManager.GetObject();
-                    candyObject.transform.position = transform.position;
+                    candyObject.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
                     candyObject.SetActive(true);
                 }
                 
