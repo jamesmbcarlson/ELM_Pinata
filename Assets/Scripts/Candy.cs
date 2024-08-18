@@ -5,20 +5,37 @@ using UnityEngine;
 public class Candy : MonoBehaviour
 {
     private Rigidbody rb;
+    private CapsuleCollider capsuleCollider;
     public float rotationSpeed = 1.0f;
     public float spawnImpulse = 10f;
+    private float lastY;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         transform.rotation = Quaternion.Euler(-90f, Random.Range(0f, 360f), 0f);
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(new Vector3(Random.Range(-1f, 1f), spawnImpulse, Random.Range(-1f, 1f)), ForceMode.Impulse);   
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        rb.AddForce(new Vector3(Random.Range(-1f, 1f), spawnImpulse, Random.Range(-1f, 1f)), ForceMode.Impulse);   
+        capsuleCollider.enabled = false;
+        lastY = transform.position.y;
+    }
+
     void Update()
     {
+        // turn on collider on after apex of jump
+        if(!capsuleCollider.enabled)
+        {
+            if(transform.position.y < lastY)
+            {
+                capsuleCollider.enabled = true;
+            }
+            lastY = transform.position.y;
+        }
+        
         //spin! for fun!
         transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f, Space.World);
 
@@ -35,6 +52,36 @@ public class Candy : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints.FreezeAll;
             rb.isKinematic = true;
+            capsuleCollider.isTrigger = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        CollectCandy(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        CollectCandy(other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        print("TEST");
+        CollectCandy(other);
+    }
+
+    private void CollectCandy(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.isKinematic = false;
+            capsuleCollider.isTrigger = false;
+            gameObject.SetActive(false);
+
         }
     }
 }
