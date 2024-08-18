@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Candy : MonoBehaviour
 {
+    private PlayerController playerController;
     private Rigidbody rb;
     private CapsuleCollider capsuleCollider;
     public float rotationSpeed = 1.0f;
@@ -68,7 +69,6 @@ public class Candy : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        print("TEST");
         CollectCandy(other);
     }
 
@@ -76,6 +76,7 @@ public class Candy : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            FindObjectOfType<PlayerController>().GrowPinata();
             rb.constraints = RigidbodyConstraints.None;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
             rb.isKinematic = false;

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public float lookSenseH = 0.1f;
     public float lookSenseV = 0.1f;
     public float lookLimitV = 89f;
-
+    private CinemachineOrbitalTransposer orbitalTransposer;
 
     private PlayerLocomotionInput _playerLocomotionInput;
     private Vector2 _cameraRotation = Vector2.zero;
@@ -50,12 +51,15 @@ public class PlayerController : MonoBehaviour
     [Header("Stats")]
     public float initialScale = 0.4f;
     public float damage = 1f;
+    public float growthFactor = 1.1f;
+
 
     private void Awake()
     {
         _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
         //originQuat = batPivot.rotation;
         targetQuat = Quaternion.Euler(0f, swingTargetB, 0f);
+        orbitalTransposer = GetComponentInChildren<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
     }
 
     private void Update()
@@ -152,5 +156,14 @@ public class PlayerController : MonoBehaviour
         _cameraRotation.y = Mathf.Clamp(_cameraRotation.y - lookSenseV * _playerLocomotionInput.LookInput.y, -lookLimitV, lookLimitV);
 
         _playerCamera.transform.rotation = Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, 0f);
+    }
+
+    public void GrowPinata()
+    {
+        transform.localScale *= growthFactor;
+        groundDistance *= growthFactor;
+        //transform.position = new Vector3(transform.position.x, 10f, transform.position.z);
+        orbitalTransposer.m_FollowOffset.z *= growthFactor;
+        
     }
 }
