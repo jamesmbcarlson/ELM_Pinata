@@ -54,6 +54,11 @@ public class PlayerController : MonoBehaviour
     public float damage = 1f;
     public float growthFactor = 1.1f;
 
+    private bool isGrowing;
+    public float growthRate = 10f;
+    private Vector3 targetScale;
+    private float targetGroundDistance;
+    private float targetCameraFollowZ;
 
     private void Awake()
     {
@@ -148,6 +153,8 @@ public class PlayerController : MonoBehaviour
         // Move character (Unity suggests calling this only once per frame)
         Vector3 newVelocity = new Vector3(horizontalVelocity.x, verticalVelocity, horizontalVelocity.z);
         _characterController.Move(newVelocity * Time.deltaTime);
+
+        Grow();
     }
 
     private void LateUpdate()
@@ -159,12 +166,40 @@ public class PlayerController : MonoBehaviour
         _playerCamera.transform.rotation = Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, 0f);
     }
 
+    public void Grow()
+    {
+        
+        if(isGrowing)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, targetScale, growthRate * Time.deltaTime);
+            groundDistance = Mathf.Lerp(groundDistance, targetGroundDistance, growthRate * Time.deltaTime);
+            orbitalTransposer.m_FollowOffset.z = Mathf.Lerp(orbitalTransposer.m_FollowOffset.z, targetCameraFollowZ, growthRate * Time.deltaTime);
+
+            if (transform.localScale.x >= targetScale.x && 
+                groundDistance >= targetGroundDistance && 
+                targetCameraFollowZ <= orbitalTransposer.m_FollowOffset.z)
+            {
+                isGrowing = false;
+            }
+        }
+    }
+
     public void GrowPinata()
     {
-        transform.localScale *= growthFactor;
-        groundDistance *= growthFactor;
-        //transform.position = new Vector3(transform.position.x, 10f, transform.position.z);
-        orbitalTransposer.m_FollowOffset.z *= growthFactor;
-        
+        // set initial targets
+        if (targetGroundDistance == 0f)
+        {
+            targetScale = transform.localScale * growthFactor;
+            targetGroundDistance = groundDistance * growthFactor;
+            targetCameraFollowZ = orbitalTransposer.m_FollowOffset.z *= growthFactor;
+        }
+        // set targets using targets -- this way the target can update when multiple candies are collected simultaneously
+        else
+        {
+            targetScale *= growthFactor;
+            targetGroundDistance *= growthFactor;
+            targetCameraFollowZ *= growthFactor;
+        }
+        isGrowing = true;
     }
 }
