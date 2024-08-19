@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     public float swingTargetB;
     public bool isTargetingA;
     public float attackSpeed;
+    public float diagonalAngle = 30f;
 
     [Header("Stats")]
     public float initialScale = 0.4f;
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
         //originQuat = batPivot.rotation;
-        targetQuat = Quaternion.Euler(0f, swingTargetB, 0f);
+        targetQuat = Quaternion.Euler(0f, swingTargetB, -diagonalAngle);
         orbitalTransposer = GetComponentInChildren<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
     }
 
@@ -79,11 +80,11 @@ public class PlayerController : MonoBehaviour
                 isTargetingA = !isTargetingA;
                 if (isTargetingA)
                 {
-                    targetQuat = Quaternion.Euler(0f, swingTargetA, 0f);
+                    targetQuat = Quaternion.Euler(0f, swingTargetA, diagonalAngle);
                 }
                 else
                 {
-                    targetQuat = Quaternion.Euler(0f, swingTargetB, 0f);
+                    targetQuat = Quaternion.Euler(0f, swingTargetB, -diagonalAngle);
                 }
             }
         }
