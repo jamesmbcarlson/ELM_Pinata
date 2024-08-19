@@ -23,6 +23,8 @@ public class BashableObject : MonoBehaviour
     public int maxCandy = 3;
     private PoolManager candyManager;
 
+    [Header("Sounds")]
+    public AudioSource audioSource;
 
 
     private void Awake()
@@ -38,6 +40,7 @@ public class BashableObject : MonoBehaviour
         if (collision.gameObject.name == "bat" && playerController.isSwinging && playerController.gameObject.transform.localScale.x >= armorClass)
         {
             healthPoints -= playerController.damage;
+            
             if (healthPoints <= 0)
             {
                 // grab smoke from pool
@@ -48,7 +51,7 @@ public class BashableObject : MonoBehaviour
                 vfx.SetFloat("MaxRandomSize", maxSmoke);
                 smokeEffect.SetActive(true);
 
-                // TO-DO: spawn candy!
+                // spawn candy!
                 int candyAmount = Random.Range(minCandy, maxCandy + 1);
                 for(int i = 0; i < candyAmount; i++)
                 {
@@ -56,10 +59,13 @@ public class BashableObject : MonoBehaviour
                     candyObject.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
                     candyObject.SetActive(true);
                 }
-                
 
                 Destroy(gameObject);
                 
+            }
+            else
+            {
+                audioSource.Play();
             }
         }
     }

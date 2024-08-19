@@ -60,6 +60,9 @@ public class PlayerController : MonoBehaviour
     private float targetGroundDistance;
     private float targetCameraFollowZ;
 
+    [Header("Sounds")]
+    public AudioSource sndBatSwing;
+
     private void Awake()
     {
         _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour
         if(!isSwinging && _playerLocomotionInput.GetAttack.WasPressedThisFrame())
         {
             isSwinging = true;
+            sndBatSwing.Play();
         }
         else if(isSwinging)
         {
