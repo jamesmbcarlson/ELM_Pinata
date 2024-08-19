@@ -799,17 +799,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 400e63bbdcb72274382ff2d39eb81eaf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 58.534267
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 400e63bbdcb72274382ff2d39eb81eaf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.66
+      value: 0.6600001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 400e63bbdcb72274382ff2d39eb81eaf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -65
+      value: -430.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 400e63bbdcb72274382ff2d39eb81eaf,
         type: 3}
@@ -969,7 +969,7 @@ MonoBehaviour:
   diagonalAngle: 30
   initialScale: 0.4
   damage: 1
-  growthFactor: 1.01
+  growthFactor: 1.05
   growthRate: 10
   sndBatSwing: {fileID: 9218052784518876861}
 --- !u!114 &3111768325259033160
