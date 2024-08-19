@@ -203,6 +203,7 @@ public class PlayerController : MonoBehaviour
             targetScale *= growthFactor;
             targetGroundDistance *= growthFactor;
             targetCameraFollowZ *= growthFactor;
+            damage *= growthFactor;
         }
         isGrowing = true;
     }
