@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 55
-  minSmoke: 1
-  maxSmoke: 2
+  minSmoke: 2
+  maxSmoke: 4
   minCandy: 5
   maxCandy: 15
 --- !u!54 &3892976933007057346
