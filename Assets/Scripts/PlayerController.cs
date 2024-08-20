@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -63,12 +64,18 @@ public class PlayerController : MonoBehaviour
     [Header("Sounds")]
     public AudioSource sndBatSwing;
 
+    [Header("Candy Counter")]
+    public GameObject candyCounterObj;
+    public TextMeshProUGUI candyCounter;
+    private int candyCount;
+
     private void Awake()
     {
         _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
         //originQuat = batPivot.rotation;
         targetQuat = Quaternion.Euler(0f, swingTargetB, -diagonalAngle);
         orbitalTransposer = GetComponentInChildren<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
+        //candyCounter = candyCounterObj.GetComponent<TextMeshPro>();
     }
 
     private void Update()
@@ -190,6 +197,9 @@ public class PlayerController : MonoBehaviour
 
     public void GrowPinata()
     {
+        candyCount++;
+        candyCounter.text = candyCount.ToString();
+
         // set initial targets
         if (targetGroundDistance == 0f)
         {
