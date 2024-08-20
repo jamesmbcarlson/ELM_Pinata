@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     [Header("Stats")]
     public float initialScale = 0.4f;
     public float damage = 1f;
-    public float growthFactor = 1.1f;
+    public float growthFactor = 1.01f;
 
     private bool isGrowing;
     public float growthRate = 10f;
@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
     public AudioSource sndBatSwing;
 
     [Header("Candy Counter")]
-    public GameObject candyCounterObj;
     public TextMeshProUGUI candyCounter;
     private int candyCount;
 
@@ -75,11 +74,15 @@ public class PlayerController : MonoBehaviour
         //originQuat = batPivot.rotation;
         targetQuat = Quaternion.Euler(0f, swingTargetB, -diagonalAngle);
         orbitalTransposer = GetComponentInChildren<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
-        //candyCounter = candyCounterObj.GetComponent<TextMeshPro>();
     }
 
     private void Update()
     {
+        if (candyCount > 300 && growthFactor == 1.01f)
+        {
+            growthFactor = 1.00001f;
+        }
+
         // Attack!
         if(!isSwinging && _playerLocomotionInput.GetAttack.WasPressedThisFrame())
         {
