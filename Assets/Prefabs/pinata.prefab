@@ -969,7 +969,7 @@ MonoBehaviour:
   diagonalAngle: 30
   initialScale: 0.4
   damage: 1
-  growthFactor: 1.05
+  growthFactor: 1.01
   growthRate: 10
   sndBatSwing: {fileID: 9218052784518876861}
 --- !u!114 &3111768325259033160

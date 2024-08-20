@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4703510533658948}
   - component: {fileID: 33050964148682544}
   - component: {fileID: 23745940497166030}
-  - component: {fileID: 64499572120190672}
   - component: {fileID: 2929976024737487616}
   - component: {fileID: 4475846469984485496}
+  - component: {fileID: 3643862610347365489}
   m_Layer: 0
   m_Name: SM_Item_Ball_Soccer_01
   m_TagString: Untagged
@@ -86,28 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64499572120190672
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1559113662988582}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43560109255574700, guid: 1762ef7d8ca120246afda60151e4e2e7, type: 2}
 --- !u!54 &2929976024737487616
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,3 +130,24 @@ MonoBehaviour:
   maxSmoke: 2
   minCandy: 1
   maxCandy: 5
+--- !u!135 &3643862610347365489
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559113662988582}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.15480329
+  m_Center: {x: -0.0000019073486, y: 0.14754717, z: -0.000015258789}
