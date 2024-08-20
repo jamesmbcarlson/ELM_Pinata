@@ -6,7 +6,7 @@ public class ShootToPlayer : MonoBehaviour
 {
 
     private PlayerController playerController;
-    [SerializeField] float speed = 1f;
+    [SerializeField] float speed = 50f;
     private bool goodToGO = false;
     void Start()
     {
@@ -35,7 +35,7 @@ public class ShootToPlayer : MonoBehaviour
 
     private void GoTime()
     {
-            if(goodToGO == true){transform.position += (playerController.transform.position - transform.position).normalized * speed * Time.deltaTime;}
+            if(goodToGO == true){transform.position += (playerController.transform.position - transform.position) * speed * Time.deltaTime;}
         
     }
 
